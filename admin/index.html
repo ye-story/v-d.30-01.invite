@@ -5,27 +5,40 @@
     <meta content="true" name="HandheldFriendly" />
     <meta content="width" name="MobileOptimized" />
     <meta content="yes" name="apple-mobile-web-app-capable" />
+    
+    <!-- Meta Tags -->
     <meta property="og:image" content="/img/link.jpg" />
-
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Админка. Ссылки" />
     <meta property="og:image" content="https://ye-story.github.io/v-d.30-01.invite/img/link.jpg" />
     <meta property="og:site_name" content="Links (Admin): V & D" />
-    <meta
-      property="og:description"
-      content="Свадебное приглашение Виктории и Даниила!"
-    />
-
+    <meta property="og:description" content="Свадебное приглашение Виктории и Даниила!" />
     <meta property="og:url" content="https://ye-story.github.io/v-d.30-01.invite/admin/" />
 
-    <link rel="stylesheet" type="text/css" href="styles.css" />
     <title>Admin: V & D</title>
+
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Иконки FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Стили v=5 -->
+    <link rel="stylesheet" type="text/css" href="styles.css?v=5" />
   </head>
   <body>
     <main>
-      <h1>Ссылки на приглашения:</h1>
-      <div class="container" id="container"></div>
+      <header>
+        <div class="logo">V & D</div>
+        <h1>Список приглашений</h1>
+      </header>
+      
+      <div class="grid-container" id="container">
+        <!-- Карточки генерируются скриптом -->
+      </div>
     </main>
-    <script src="script.js?1002"></script>
+    <script src="script.js?v=5"></script>
   </body>
 </html>

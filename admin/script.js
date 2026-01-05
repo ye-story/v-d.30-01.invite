@@ -25,71 +25,77 @@ const names = [
   { id: "24", names: "Кристина" }
 ];
 
-const baseURL = location.href.replace('admin/', ''); //location.origin
+const baseURL = location.href.replace('admin/', '');
 const container = document.getElementById('container');
 
 names.forEach((name, index) => {
-  const nameElem = document.createElement('div');
-  nameElem.classList.add('name');
-  const titleNameElem = document.createElement('p');
-  titleNameElem.classList.add('name__title');
-  titleNameElem.innerHTML = name.names;
-  const linkNameElem = document.createElement('a');
-  linkNameElem.classList.add('name__link');
-
   const link = `${baseURL}?id=${name.id}`;
-  linkNameElem.href = link;
-  linkNameElem.innerHTML = link;
-  linkNameElem.target = '_blank';
 
-  const btnCopyLink = document.createElement('button');
-  btnCopyLink.innerHTML = 'copy';
-  btnCopyLink.classList.add('name__btn-copy');
-  btnCopyLink.dataset.link = link;
+  const card = document.createElement('div');
+  card.classList.add('guest-card');
 
-  const btnShareViber = document.createElement('a');
-  btnShareViber.classList.add('name__btn-share-viber');
-  btnShareViber.href = 'viber://forward?text=' + link;
-  btnShareViber.target = '_blank';
+  // Добавляем красивый номер (index + 1). padStart добавляет 0 перед числом (01, 02)
+  const numberElem = document.createElement('div');
+  numberElem.classList.add('card-number');
+  numberElem.textContent = (index + 1).toString().padStart(2, '0');
 
-  const btnShareTelegram = document.createElement('a');
-  btnShareTelegram.classList.add('name__btn-share-telegram');
-  btnShareTelegram.href = `https://telegram.me/share/url?url=${link}&amp;text=${link}`;
-  btnShareTelegram.target = '_blank';
+  const titleElem = document.createElement('div');
+  titleElem.classList.add('name__title');
+  titleElem.textContent = name.names;
 
-  const linkWrapper = document.createElement('div');
-  linkWrapper.classList.add('name__link-wrapper');
+  const linkInput = document.createElement('input');
+  linkInput.classList.add('link-display');
+  linkInput.value = link;
+  linkInput.readOnly = true;
+  linkInput.addEventListener('click', function() { this.select(); });
 
-  linkWrapper.append(
-    linkNameElem,
-    btnCopyLink,
-    btnShareViber,
-    btnShareTelegram
-  );
+  const actionsDiv = document.createElement('div');
+  actionsDiv.classList.add('actions');
 
-  nameElem.append(titleNameElem, linkWrapper);
+  const btnCopy = document.createElement('button');
+  btnCopy.className = 'btn-copy';
+  btnCopy.dataset.link = link;
+  btnCopy.innerHTML = '<i class="fa-regular fa-copy"></i> Копировать';
 
-  container.append(nameElem);
+  const btnViber = document.createElement('a');
+  btnViber.className = 'btn-share viber';
+  btnViber.href = 'viber://forward?text=' + encodeURIComponent(link);
+  btnViber.target = '_blank';
+  btnViber.innerHTML = '<i class="fa-brands fa-viber"></i>';
+
+  const btnTg = document.createElement('a');
+  btnTg.className = 'btn-share telegram';
+  btnTg.href = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Приглашение на свадьбу')}`;
+  btnTg.target = '_blank';
+  btnTg.innerHTML = '<i class="fa-brands fa-telegram"></i>';
+
+  actionsDiv.append(btnCopy, btnViber, btnTg);
+  
+  // Добавляем номер первым в карточку
+  card.append(numberElem, titleElem, linkInput, actionsDiv);
+  container.append(card);
 });
 
 container.addEventListener('click', (e) => {
-  const btnCopy = e.target;
+  const btnCopy = e.target.closest('.btn-copy');
 
-  if (btnCopy.classList.contains('name__btn-copy')) {
+  if (btnCopy) {
     const linkUrl = btnCopy.dataset.link;
-    console.log(linkUrl);
-    navigator.clipboard
-      .writeText(linkUrl)
+    
+    navigator.clipboard.writeText(linkUrl)
       .then(() => {
-        console.log('Text copied to clipboard ' + linkUrl);
-        btnCopy.innerHTML = 'copied';
+        const originalContent = btnCopy.innerHTML;
+        
+        btnCopy.classList.add('copied');
+        btnCopy.innerHTML = '<i class="fa-solid fa-check"></i> Готово';
 
         setTimeout(() => {
-          btnCopy.innerHTML = 'copy';
-        }, 5000);
+          btnCopy.classList.remove('copied');
+          btnCopy.innerHTML = originalContent;
+        }, 2000);
       })
       .catch((err) => {
-        console.error('Error in copying text: ', err);
+        console.error('Ошибка:', err);
       });
   }
 });

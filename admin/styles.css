@@ -1,12 +1,12 @@
-@font-face {
-  font-family: 'DryhtenRegular';
-  src: local('DryhtenRegular'),
-    url('./../fonts/DryhtenRegular.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Sylfaen';
-  src: local('Sylfaen'), url('./../fonts/sylfaen.ttf') format('truetype');
+/* -- ПЕРЕМЕННЫЕ -- */
+:root {
+  --primary-color: #8da399; /* Шалфейный зеленый (основа) */
+  --accent-color: #9a72cfad;  /* Насыщенный фиалковый (акцент) */
+  --bg-color: #f8f9fa;
+  --card-bg: #ffffff;
+  --text-dark: #2c3e50;
+  --text-light: #95a5a6;
+  --radius: 16px;
 }
 
 * {
@@ -15,114 +15,194 @@
   padding: 0;
 }
 
-html {
-  font-family: 'Sylfaen', 'Times New Roman', Times, serif;
-  font-size: 18px;
-}
-
 body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 2rem 1rem;
 }
 
 main {
+  max-width: 1200px;
   margin: 0 auto;
-  max-width: 720px;
-  min-width: 400px;
+}
+
+/* -- ШАПКА -- */
+header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
 }
 
 h1 {
-  text-align: center;
-  color: rgb(15, 1, 49);
-  padding: 0.5rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-dark);
+  letter-spacing: 1px;
 }
 
-.container {
+/* -- СЕТКА -- */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+  padding-bottom: 3rem;
 }
 
-.name {
-  padding: 0.5rem 1rem;
-  border-bottom: 2px solid gray;
-}
-
-.name:nth-child(2n) {
-  background-color: rgb(144 255 0 / 31%);
-}
-
-.name__title {
-  padding: 0.3rem;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-.name__link-wrapper {
+/* -- КАРТОЧКА -- */
+.guest-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 2px solid transparent; 
   display: flex;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
+  flex-direction: column;
+  position: relative; /* Для позиционирования номера */
+  overflow: hidden;   /* Чтобы номер не вылезал */
+  transition: all 0.3s ease;
+}
+
+/* Эффект наведения: фиалковая обводка и свечение */
+.guest-card:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 8px 30px rgba(155, 114, 207, 0.2);
+}
+
+/* -- НОМЕР В УГЛУ -- */
+.card-number {
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: rgba(155, 114, 207, 0.08); /* Очень прозрачный фиалковый */
+  pointer-events: none; /* Чтобы сквозь него можно было кликать */
+  line-height: 1;
+  z-index: 0;
+}
+
+/* -- ИМЯ -- */
+.name__title {
+  position: relative; /* Чтобы быть выше номера */
+  z-index: 1;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #f0f0f0;
+  padding-right: 2rem; /* Отступ справа, чтобы имя не наезжало на номер */
+}
+
+/* -- ПОЛЕ ССЫЛКИ -- */
+.link-display {
+  position: relative;
+  z-index: 1;
+  background: #fdfdfd;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-family: 'Lato', monospace;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  width: 100%;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: text;
+  transition: 0.2s;
+}
+
+.link-display:focus {
+  outline: none;
+  border-color: var(--accent-color); /* Фиалковый фокус */
+  background: #fff;
+  color: var(--text-dark);
+}
+
+/* -- КНОПКИ -- */
+.actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 1rem;
   align-items: center;
+  margin-top: auto;
 }
 
-.name__link {
-  padding: 0.3rem 0.6rem;
-  font-weight: bold;
-  font-size: 0.7rem;
-  border: 1px dashed gray;
-  background-color: rgb(255, 255, 167);
-  border-radius: 0.2rem;
-}
-
-.name__btn-copy {
-  margin-left: 2rem;
-  padding: 0.2rem 1rem;
-  border: 2px solid rgb(110, 175, 13);
-  color: rgb(110, 175, 13);
-  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.179);
-  background: white;
-  outline: none;
-  border-radius: 0.3rem;
-  height: 40px;
-
-  transition: 0.4s all;
-}
-
-.name__btn-copy:hover {
-  opacity: 0.8;
-  box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.179);
-  transition: 0.2s all;
-}
-
-.name__btn-copy:active {
-  transform: translate(1px, 1px);
-  transition: 0.2s all;
-}
-
-.name__btn-share-viber {
-  width: 32px;
-  height: 32px;
-  background: url('./assets/icons8-viber.svg') no-repeat center;
-  background-size: 90%;
-  outline: none;
+/* Кнопка Копировать */
+.btn-copy {
+  flex-grow: 1;
+  background-color: var(--primary-color);
+  color: white;
   border: none;
-  margin: 0 0.2rem 0 0.6rem;
+  padding: 0 1.2rem;
+  height: 48px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.3s;
 }
 
-.name__btn-share-telegram {
-  width: 32px;
-  height: 32px;
-  background: url('./assets/icons8-телеграмма-app.svg') no-repeat center;
-  background-size: 90%;
-  outline: none;
-  border: none;
-  margin: 0 0 0 0.6rem;
+.btn-copy:hover {
+  background-color: #7a8f85;
 }
 
-.name__btn-share-viber:hover,
-.name__btn-share-telegram:hover {
-  opacity: 0.8;
-  transition: 0.2s all;
+/* Состояние "Скопировано" - фиалковое */
+.btn-copy.copied {
+  background-color: var(--accent-color);
 }
 
-.name__btn-share-viber:active,
-.name__btn-share-telegram:active {
-  opacity: 0.8;
-  transform: translate(1px, 1px);
-  transition: 0.2s all;
+/* Кнопки соцсетей */
+.btn-share {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+  color: white;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.btn-share:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.viber {
+  background-color: #7360f2;
+}
+
+.telegram {
+  background-color: #24A1DE;
+}
+
+/* Адаптив */
+@media (max-width: 600px) {
+  .logo { font-size: 2.5rem; }
+  .grid-container { gap: 1.5rem; }
+  .card-number { font-size: 3rem; top: -5px; right: 10px; }
 }
