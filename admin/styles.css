@@ -1,0 +1,128 @@
+@font-face {
+  font-family: 'DryhtenRegular';
+  src: local('DryhtenRegular'),
+    url('./../fonts/DryhtenRegular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Sylfaen';
+  src: local('Sylfaen'), url('./../fonts/sylfaen.ttf') format('truetype');
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Sylfaen', 'Times New Roman', Times, serif;
+  font-size: 18px;
+}
+
+body {
+}
+
+main {
+  margin: 0 auto;
+  max-width: 720px;
+  min-width: 400px;
+}
+
+h1 {
+  text-align: center;
+  color: rgb(15, 1, 49);
+  padding: 0.5rem;
+}
+
+.container {
+}
+
+.name {
+  padding: 0.5rem 1rem;
+  border-bottom: 2px solid gray;
+}
+
+.name:nth-child(2n) {
+  background-color: rgb(144 255 0 / 31%);
+}
+
+.name__title {
+  padding: 0.3rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.name__link-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.name__link {
+  padding: 0.3rem 0.6rem;
+  font-weight: bold;
+  font-size: 0.7rem;
+  border: 1px dashed gray;
+  background-color: rgb(255, 255, 167);
+  border-radius: 0.2rem;
+}
+
+.name__btn-copy {
+  margin-left: 2rem;
+  padding: 0.2rem 1rem;
+  border: 2px solid rgb(110, 175, 13);
+  color: rgb(110, 175, 13);
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.179);
+  background: white;
+  outline: none;
+  border-radius: 0.3rem;
+  height: 40px;
+
+  transition: 0.4s all;
+}
+
+.name__btn-copy:hover {
+  opacity: 0.8;
+  box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.179);
+  transition: 0.2s all;
+}
+
+.name__btn-copy:active {
+  transform: translate(1px, 1px);
+  transition: 0.2s all;
+}
+
+.name__btn-share-viber {
+  width: 32px;
+  height: 32px;
+  background: url('./assets/icons8-viber.svg') no-repeat center;
+  background-size: 90%;
+  outline: none;
+  border: none;
+  margin: 0 0.2rem 0 0.6rem;
+}
+
+.name__btn-share-telegram {
+  width: 32px;
+  height: 32px;
+  background: url('./assets/icons8-телеграмма-app.svg') no-repeat center;
+  background-size: 90%;
+  outline: none;
+  border: none;
+  margin: 0 0 0 0.6rem;
+}
+
+.name__btn-share-viber:hover,
+.name__btn-share-telegram:hover {
+  opacity: 0.8;
+  transition: 0.2s all;
+}
+
+.name__btn-share-viber:active,
+.name__btn-share-telegram:active {
+  opacity: 0.8;
+  transform: translate(1px, 1px);
+  transition: 0.2s all;
+}
