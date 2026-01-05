@@ -44,13 +44,12 @@ names.forEach((name, index) => {
   titleElem.classList.add('name__title');
   titleElem.textContent = name.names;
 
-  // Ссылка (теперь кликабельная)
+  // Ссылка
   const linkElem = document.createElement('a');
   linkElem.classList.add('link-display');
   linkElem.href = link;
   linkElem.textContent = link;
-  linkElem.target = '_blank'; // Открывать в новой вкладке
-  // Подсказка при наведении
+  linkElem.target = '_blank';
   linkElem.title = "Открыть приглашение";
 
   // Кнопки
@@ -80,7 +79,6 @@ names.forEach((name, index) => {
   container.append(card);
 });
 
-// Копирование работает так же
 container.addEventListener('click', (e) => {
   const btnCopy = e.target.closest('.btn-copy');
 
