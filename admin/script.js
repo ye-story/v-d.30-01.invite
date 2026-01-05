@@ -34,21 +34,26 @@ names.forEach((name, index) => {
   const card = document.createElement('div');
   card.classList.add('guest-card');
 
-  // Добавляем красивый номер (index + 1). padStart добавляет 0 перед числом (01, 02)
+  // Номер 01, 02...
   const numberElem = document.createElement('div');
   numberElem.classList.add('card-number');
   numberElem.textContent = (index + 1).toString().padStart(2, '0');
 
+  // Имя
   const titleElem = document.createElement('div');
   titleElem.classList.add('name__title');
   titleElem.textContent = name.names;
 
-  const linkInput = document.createElement('input');
-  linkInput.classList.add('link-display');
-  linkInput.value = link;
-  linkInput.readOnly = true;
-  linkInput.addEventListener('click', function() { this.select(); });
+  // Ссылка (теперь кликабельная)
+  const linkElem = document.createElement('a');
+  linkElem.classList.add('link-display');
+  linkElem.href = link;
+  linkElem.textContent = link;
+  linkElem.target = '_blank'; // Открывать в новой вкладке
+  // Подсказка при наведении
+  linkElem.title = "Открыть приглашение";
 
+  // Кнопки
   const actionsDiv = document.createElement('div');
   actionsDiv.classList.add('actions');
 
@@ -71,11 +76,11 @@ names.forEach((name, index) => {
 
   actionsDiv.append(btnCopy, btnViber, btnTg);
   
-  // Добавляем номер первым в карточку
-  card.append(numberElem, titleElem, linkInput, actionsDiv);
+  card.append(numberElem, titleElem, linkElem, actionsDiv);
   container.append(card);
 });
 
+// Копирование работает так же
 container.addEventListener('click', (e) => {
   const btnCopy = e.target.closest('.btn-copy');
 

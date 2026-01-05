@@ -1,7 +1,7 @@
 /* -- ПЕРЕМЕННЫЕ -- */
 :root {
-  --primary-color: #8da399; /* Шалфейный зеленый (основа) */
-  --accent-color: #9a72cfad;  /* Насыщенный фиалковый (акцент) */
+  --primary-color: #8da399; /* Шалфейный зеленый */
+  --accent-color: #9a72cf8c;  /* Насыщенный фиалковый */
   --bg-color: #f8f9fa;
   --card-bg: #ffffff;
   --text-dark: #2c3e50;
@@ -68,12 +68,11 @@ h1 {
   border: 2px solid transparent; 
   display: flex;
   flex-direction: column;
-  position: relative; /* Для позиционирования номера */
-  overflow: hidden;   /* Чтобы номер не вылезал */
+  position: relative;
+  overflow: hidden;
   transition: all 0.3s ease;
 }
 
-/* Эффект наведения: фиалковая обводка и свечение */
 .guest-card:hover {
   border-color: var(--accent-color);
   box-shadow: 0 8px 30px rgba(155, 114, 207, 0.2);
@@ -87,15 +86,15 @@ h1 {
   font-family: 'Playfair Display', serif;
   font-size: 4rem;
   font-weight: 700;
-  color: rgba(155, 114, 207, 0.08); /* Очень прозрачный фиалковый */
-  pointer-events: none; /* Чтобы сквозь него можно было кликать */
+  color: rgba(155, 114, 207, 0.08);
+  pointer-events: none;
   line-height: 1;
   z-index: 0;
 }
 
 /* -- ИМЯ -- */
 .name__title {
-  position: relative; /* Чтобы быть выше номера */
+  position: relative;
   z-index: 1;
   font-family: 'Playfair Display', serif;
   font-size: 1.4rem;
@@ -104,34 +103,40 @@ h1 {
   margin-bottom: 1.2rem;
   padding-bottom: 0.8rem;
   border-bottom: 1px solid #f0f0f0;
-  padding-right: 2rem; /* Отступ справа, чтобы имя не наезжало на номер */
+  padding-right: 2rem;
 }
 
-/* -- ПОЛЕ ССЫЛКИ -- */
+/* -- ССЫЛКА (теперь кликабельная) -- */
 .link-display {
   position: relative;
   z-index: 1;
-  background: #fdfdfd;
-  border: 1px solid #e0e0e0;
+  display: block; /* Важно для ссылки */
+  background: rgba(155, 114, 207, 0.03); /* Очень легкий фиалковый фон */
+  border: 1px dashed rgba(155, 114, 207, 0.4); /* Пунктирная рамка */
   border-radius: 8px;
   padding: 0.8rem;
+  
   font-family: 'Lato', monospace;
   font-size: 0.85rem;
-  color: var(--text-light);
+  color: var(--accent-color); /* Цвет текста фиалковый */
+  text-decoration: none;
+  
   width: 100%;
   margin-bottom: 1.5rem;
+  
+  /* Обрезка длинного текста */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  cursor: text;
-  transition: 0.2s;
+  
+  transition: all 0.2s;
 }
 
-.link-display:focus {
-  outline: none;
-  border-color: var(--accent-color); /* Фиалковый фокус */
-  background: #fff;
-  color: var(--text-dark);
+.link-display:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+  border-style: solid; /* При наведении рамка становится сплошной */
 }
 
 /* -- КНОПКИ -- */
@@ -144,7 +149,6 @@ h1 {
   margin-top: auto;
 }
 
-/* Кнопка Копировать */
 .btn-copy {
   flex-grow: 1;
   background-color: var(--primary-color);
@@ -167,12 +171,10 @@ h1 {
   background-color: #7a8f85;
 }
 
-/* Состояние "Скопировано" - фиалковое */
 .btn-copy.copied {
   background-color: var(--accent-color);
 }
 
-/* Кнопки соцсетей */
 .btn-share {
   width: 48px;
   height: 48px;
@@ -200,7 +202,6 @@ h1 {
   background-color: #24A1DE;
 }
 
-/* Адаптив */
 @media (max-width: 600px) {
   .logo { font-size: 2.5rem; }
   .grid-container { gap: 1.5rem; }
