@@ -44,41 +44,46 @@ names.forEach((name, index) => {
   titleElem.classList.add('name__title');
   titleElem.textContent = name.names;
 
-  // Ссылка
-  const linkElem = document.createElement('a');
-  linkElem.classList.add('link-display');
-  linkElem.href = link;
-  linkElem.textContent = link;
-  linkElem.target = '_blank';
-  linkElem.title = "Открыть приглашение";
-
-  // Кнопки
+  // --- БЛОК КНОПОК (ВСЁ В ОДНУ СТРОКУ) ---
   const actionsDiv = document.createElement('div');
   actionsDiv.classList.add('actions');
 
-  const btnCopy = document.createElement('button');
-  btnCopy.className = 'btn-copy';
-  btnCopy.dataset.link = link;
-  btnCopy.innerHTML = '<i class="fa-regular fa-copy"></i> Копировать';
+  // 1. Кнопка "Открыть" (глаз) - вместо длинной ссылки
+  const btnOpen = document.createElement('a');
+  btnOpen.className = 'btn-action btn-open';
+  btnOpen.href = link;
+  btnOpen.target = '_blank';
+  btnOpen.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i>';
+  btnOpen.title = "Открыть приглашение";
 
+  // 2. Кнопка "Копировать"
+  const btnCopy = document.createElement('button');
+  btnCopy.className = 'btn-action btn-copy';
+  btnCopy.dataset.link = link;
+  // На мобильном можно оставить только иконку или короткий текст
+  btnCopy.innerHTML = '<i class="fa-regular fa-copy"></i> Копия';
+
+  // 3. Viber
   const btnViber = document.createElement('a');
-  btnViber.className = 'btn-share viber';
+  btnViber.className = 'btn-action btn-share viber';
   btnViber.href = 'viber://forward?text=' + encodeURIComponent(link);
   btnViber.target = '_blank';
   btnViber.innerHTML = '<i class="fa-brands fa-viber"></i>';
 
+  // 4. Telegram
   const btnTg = document.createElement('a');
-  btnTg.className = 'btn-share telegram';
+  btnTg.className = 'btn-action btn-share telegram';
   btnTg.href = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent('Приглашение на свадьбу')}`;
   btnTg.target = '_blank';
   btnTg.innerHTML = '<i class="fa-brands fa-telegram"></i>';
 
-  actionsDiv.append(btnCopy, btnViber, btnTg);
+  actionsDiv.append(btnOpen, btnCopy, btnViber, btnTg);
   
-  card.append(numberElem, titleElem, linkElem, actionsDiv);
+  card.append(numberElem, titleElem, actionsDiv);
   container.append(card);
 });
 
+// Логика копирования
 container.addEventListener('click', (e) => {
   const btnCopy = e.target.closest('.btn-copy');
 
@@ -90,12 +95,12 @@ container.addEventListener('click', (e) => {
         const originalContent = btnCopy.innerHTML;
         
         btnCopy.classList.add('copied');
-        btnCopy.innerHTML = '<i class="fa-solid fa-check"></i> Готово';
+        btnCopy.innerHTML = '<i class="fa-solid fa-check"></i>'; // Галочка при успехе
 
         setTimeout(() => {
           btnCopy.classList.remove('copied');
           btnCopy.innerHTML = originalContent;
-        }, 2000);
+        }, 1500); // Чуть быстрее возвращаем (1.5с)
       })
       .catch((err) => {
         console.error('Ошибка:', err);

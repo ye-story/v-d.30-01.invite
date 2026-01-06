@@ -1,12 +1,12 @@
 /* -- ПЕРЕМЕННЫЕ -- */
 :root {
-  --primary-color: #7d968b; /* Чуть более насыщенный шалфей */
-  --accent-color: #8e62c6;  /* Плотный фиалковый (без прозрачности!) */
-  --bg-color: #f4f7f6;      /* Чуть более холодный фон для контраста */
+  --primary-color: #7d968b;
+  --accent-color: #8e62c6;
+  --bg-color: #f0f2f1;      /* Чуть темнее фон для контраста белых карточек */
   --card-bg: #ffffff;
-  --text-dark: #1a1a1a;     /* Почти черный для отличной читаемости */
-  --text-light: #717d7e;    /* Серый стал темнее */
-  --radius: 16px;
+  --text-dark: #1a1a1a;
+  --text-light: #717d7e;
+  --radius: 12px;           /* Чуть меньше скругление */
 }
 
 * {
@@ -16,84 +16,74 @@
 }
 
 body {
-  /* Montserrat намного лучше читается с экранов */
   font-family: 'Montserrat', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-dark);
-  line-height: 1.6;
+  line-height: 1.4;
   min-height: 100vh;
-  padding: 2rem 1rem;
+  padding: 1rem 0.5rem; /* Минимальные отступы для body */
 }
 
 main {
-  max-width: 1200px;
+  max-width: 1000px; /* Уменьшили ширину контейнера */
   margin: 0 auto;
 }
 
 /* -- ШАПКА -- */
 header {
   text-align: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 1.5rem; /* Уменьшили отступ */
 }
 
 .logo {
   font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-size: 2rem; /* Уменьшили лого */
   font-weight: 700;
   color: var(--primary-color);
-  margin-bottom: 0.5rem;
-  letter-spacing: 2px;
+  margin-bottom: 0.2rem;
 }
 
 h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.8rem; /* Чуть крупнее */
-  font-weight: 600;  /* Чуть жирнее */
+  font-size: 1.2rem;
   color: var(--text-dark);
-  letter-spacing: 0.5px;
 }
 
-/* -- СЕТКА -- */
+/* -- СЕТКА (Compact) -- */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2.5rem;
-  padding-bottom: 3rem;
+  /* Адаптивная сетка: на десктопе по 3, на планшете по 2, на моб по 1 */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.8rem; /* Маленький зазор между карточками */
+  padding-bottom: 2rem;
 }
 
 /* -- КАРТОЧКА -- */
 .guest-card {
   background: var(--card-bg);
   border-radius: var(--radius);
-  padding: 2rem; /* Больше отступов внутри */
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06); /* Мягкая тень */
-  border: 2px solid transparent; 
+  padding: 0.8rem 1rem; /* ОЧЕНЬ компактные отступы внутри */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.guest-card:hover {
-  border-color: var(--accent-color);
-  box-shadow: 0 10px 40px rgba(142, 98, 198, 0.25);
+  transition: transform 0.2s ease;
 }
 
 /* -- НОМЕР В УГЛУ -- */
 .card-number {
   position: absolute;
-  top: -8px;
-  right: 15px;
+  top: -5px;
+  right: 10px;
   font-family: 'Playfair Display', serif;
-  font-size: 4.5rem;
+  font-size: 2.5rem; /* Уменьшили цифру */
   font-weight: 700;
-  /* Используем opacity отдельно, чтобы цвет оставался чистым */
   color: var(--accent-color);
-  opacity: 0.08; 
+  opacity: 0.1;
   pointer-events: none;
   line-height: 1;
-  z-index: 0;
 }
 
 /* -- ИМЯ -- */
@@ -101,117 +91,90 @@ h1 {
   position: relative;
   z-index: 1;
   font-family: 'Playfair Display', serif;
-  font-size: 1.5rem; /* Крупнее */
-  font-weight: 700;  /* Жирнее для читаемости */
-  color: #000;       /* Черный цвет */
-  margin-bottom: 1.2rem;
-  padding-bottom: 0.8rem;
-  border-bottom: 1px solid #eee;
+  font-size: 1.1rem; /* Уменьшили шрифт имени */
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.8rem;
   padding-right: 2rem;
-  line-height: 1.2;
+  white-space: nowrap;      /* Текст в одну строку */
+  overflow: hidden;         /* Обрезаем если длинное */
+  text-overflow: ellipsis;  /* Троеточие */
 }
 
-/* -- ССЫЛКА (теперь кликабельная) -- */
-.link-display {
-  position: relative;
-  z-index: 1;
-  display: block; 
-  background: #f9f4ff; /* Очень светлый фиалковый фон */
-  border: 1px dashed rgba(142, 98, 198, 0.4); 
-  border-radius: 8px;
-  padding: 1rem; /* Больше воздуха */
-  
-  font-family: 'Montserrat', monospace; /* Читаемый шрифт */
-  font-size: 0.9rem; /* Шрифт крупнее! */
-  font-weight: 500;   /* Средняя жирность */
-  color: var(--accent-color);
-  text-decoration: none;
-  
-  width: 100%;
-  margin-bottom: 1.5rem;
-  
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  
-  transition: all 0.2s ease;
-}
-
-.link-display:hover {
-  background: var(--accent-color);
-  border-color: var(--accent-color);
-  color: white;
-  border-style: solid;
-  box-shadow: 0 5px 15px rgba(142, 98, 198, 0.3);
-}
-
-/* -- КНОПКИ -- */
+/* -- КНОПКИ (Панель действий) -- */
 .actions {
   position: relative;
   z-index: 1;
-  display: flex;
-  gap: 1rem;
+  display: grid;
+  /* Сетка кнопок: 
+     Открыть (auto) | Копировать (flex) | Viber (fixed) | TG (fixed) */
+  grid-template-columns: auto 1fr 36px 36px; 
+  gap: 0.5rem;
   align-items: center;
-  margin-top: auto;
 }
 
-.btn-copy {
-  flex-grow: 1;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 0 1.2rem;
-  height: 50px; /* Кнопки повыше */
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  cursor: pointer;
+/* Общие стили для кнопок */
+.btn-action {
+  height: 36px; /* Компактная высота */
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  transition: background-color 0.3s;
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
 }
 
+.btn-action:active {
+  transform: scale(0.96);
+}
+
+/* Кнопка "Открыть" (бывшая ссылка) */
+.btn-open {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0 0.8rem;
+  font-weight: 600;
+}
+.btn-open:hover {
+  background-color: #f0f5f3;
+}
+
+/* Кнопка "Копировать" */
+.btn-copy {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  gap: 6px;
+  font-size: 0.8rem; /* Чуть меньше текст */
+}
 .btn-copy:hover {
-  background-color: #6a8278; /* Темнее при наведении */
+  background-color: #6a8278;
 }
-
 .btn-copy.copied {
   background-color: var(--accent-color);
 }
 
+/* Соцсети (только иконки) */
 .btn-share {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: opacity 0.2s, transform 0.2s;
   color: white;
-  font-size: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  font-size: 1.1rem;
 }
-
 .btn-share:hover {
   opacity: 0.9;
-  transform: translateY(-2px);
 }
+.viber { background-color: #7360f2; }
+.telegram { background-color: #24A1DE; }
 
-.viber {
-  background-color: #7360f2;
-}
-
-.telegram {
-  background-color: #24A1DE;
-}
-
-@media (max-width: 600px) {
-  .logo { font-size: 2.5rem; }
-  .grid-container { gap: 1.5rem; }
-  .card-number { font-size: 3rem; top: -5px; right: 10px; }
-  .link-display { font-size: 0.85rem; } /* На мобилках чуть меньше, чтобы влезало */
+/* Адаптив для совсем мелких экранов */
+@media (max-width: 360px) {
+  .actions {
+    grid-template-columns: 1fr 1fr; /* В две строки если совсем узко */
+  }
+  .btn-share {
+    width: 100%; /* Растянуть */
+  }
 }
