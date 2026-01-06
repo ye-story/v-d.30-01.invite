@@ -57,6 +57,13 @@ main {
   height: 100%;
 
   object-fit: contain;
+
+  opacity: 0; /* Скрываем изначально */
+  transition: opacity 0.8s ease-in-out; /* Плавное появление */
+}
+
+.img-wrapper img.loaded {
+  opacity: 1;
 }
 
 
